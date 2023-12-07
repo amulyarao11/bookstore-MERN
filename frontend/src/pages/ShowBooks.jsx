@@ -5,7 +5,7 @@ import BackButton from '../components/BackButton';
 import Spinner from '../components/Spinner';
 
 const ShowBook = () => {
-  const [book, setBook] = useState({});
+  const [book, setBook] = useState({ data: {} });
   const [loading, setLoading] = useState(false);
   const { id } = useParams();
 
@@ -15,15 +15,15 @@ const ShowBook = () => {
       .get(`http://localhost:5555/books/${id}`)
       .then((response) => {
         setBook(response.data);
-        console.log(response.data)
         setLoading(false);
       })
       .catch((error) => {
         console.log(error);
         setLoading(false);
       });
-  }, []);
+  }, [id]);
 
+  console.log(book.data._id)
   return (
     <div className='p-4'>
       <BackButton />
@@ -34,27 +34,27 @@ const ShowBook = () => {
         <div className='flex flex-col border-2 border-sky-400 rounded-xl w-fit p-4'>
           <div className='my-4'>
             <span className='text-xl mr-4 text-gray-500'>Book Id</span>
-            <span>{book._id}</span>
+            <span>{book.data._id}</span>
           </div>
           <div className='my-4'>
             <span className='text-xl mr-4 text-gray-500'>Book Title</span>
-            <span>{book.title}</span>
+            <span>{book.data.title}</span>
           </div>
           <div className='my-4'>
             <span className='text-xl mr-4 text-gray-500'>Author</span>
-            <span>{book.author}</span>
+            <span>{book.data.author}</span>
           </div>
           <div className='my-4'>
             <span className='text-xl mr-4 text-gray-500'>Publish Year</span>
-            <span>{book.publishYear}</span>
+            <span>{book.data.publishYear}</span>
           </div>
           <div className='my-4'>
             <span className='text-xl mr-4 text-gray-500'>Create TimeStamp</span>
-            <span>{new Date(book.createdAt).toString()}</span>
+            <span>{new Date(book.data.createdAt).toString()}</span>
           </div>
           <div className='my-4'>
             <span className='text-xl mr-4 text-gray-500'>Last Update TimeStamp</span>
-            <span>{new Date(book.updatedAt).toString()}</span>
+            <span>{new Date(book.data.updatedAt).toString()}</span>
           </div>
         </div>
       )}

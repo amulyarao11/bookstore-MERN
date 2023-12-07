@@ -17,11 +17,10 @@ const EditBook = () => {
     axios.get(`http://localhost:5555/books/${id}`)
     .then((response) => {
         // console.log(response.data)
-        const responseData = response.data;
+        const responseData = response.data.data;
         setAuthor(responseData.author)
-        console.log(responseData.author)
-        setPublishYear(response.data.publishYear)
-        setTitle(response.data.title)
+        setPublishYear(responseData.publishYear)
+        setTitle(responseData.title)
         setLoading(false);
       }).catch((error) => {
         setLoading(false);
@@ -37,14 +36,14 @@ const EditBook = () => {
     };
     setLoading(true);
     axios
-      .put(`An error happened!! Please Check console`, data)
+      .put(`http://localhost:5555/books/${id}`, data)
       .then(() => {
         setLoading(false);
         navigate('/');
       })
       .catch((error) => {
         setLoading(false);
-        alert('An error happened. Please Chack console');
+        alert('An error happened!! Please Check console');
         console.log(error);
       });
   };
