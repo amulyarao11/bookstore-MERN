@@ -10,11 +10,12 @@ const app = express()
 
 //to parse json request body
 app.use(express.json());
+app.use(cors()); // default = *
 
 //use as MiddleWare
 app.use("/books", bookRoute);
 
-app.use(cors()); // default = *
+
 
 app.get('/', (request, response) => {
     console.log(request);
@@ -32,6 +33,6 @@ mongoose
         }
         );
     })
-    .catch(() => {
+    .catch((error) => {
         console.log(error);
     });
